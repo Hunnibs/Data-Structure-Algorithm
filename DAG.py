@@ -1,5 +1,5 @@
-import sys
-sys.setrecursionlimit(5000)
+import sys  # 재귀의 깊이가 깊어질 경우 해결하지 못하는 오류가 발생하여 추가
+sys.setrecursionlimit(10**9)
 
 def DFS(G, v):
 	global curr_time  # pre, post를 위한 time stamp
@@ -21,17 +21,33 @@ def DFSALL(G):
 		if visited[v] == False:
 			DFS(G,v)
 
+def LongestPath(start, destination):  # 어느 한 점부터 목적지까지 
+	start, destination = int(start), int(destination)
+	if start == destination:
+		return
+	for w in G[start]:
+		LongestPath(w, destination)
+		D[start] = max(D[start], D[w] + W[str(start) + str(w)])
+
+	return max(D)
+
 # 입력
 n = int(input())
 m = int(input())
 G = [[] for _ in range(n)]
+W = {}  # 가중치 값을 위해 딕셔너리 자료형 활용
+D = [0 for _ in range(n)]  # 최장거리 구하기 위한 리스트 생성
 # G를 입력 받아 처리
 for _ in range(m):
-	v, w= tuple(map(int, input().split()))
+	v, w, d= tuple(map(int, input().split()))
 	G[v].append(w)
+	W[str(v) + str(w)] = d
 for i in range(n):
 	G[i].sort(reverse=True)
-
+Sink = []
+for i in range(n):
+	if G[i] == []:
+		Sink.append(i)
 # visited, pre, post 리스트 정의와 초기화
 visited = [False for _ in range(n)]
 pre = [-1 for _ in range(n)]
@@ -42,5 +58,10 @@ L = []
 curr_time = 1
 
 DFSALL(G)
-
-print(' '.join(reversed(L)))
+L.reverse()
+Max = 0
+for w in Sink:
+	ind = L.index(str(w))
+	for i in range(ind):
+		Max = max(Max, LongestPath(L[i], L[ind]))
+print(Max)
