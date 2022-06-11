@@ -1,3 +1,8 @@
+'''
+위상정렬을 활용하지 못하고 정점으로부터 정점까지 최대거리를 구하는 방식으로 문제 해결, Sink 노드는 추려낼 수 있지만 Source노드는 그렇지 못함
+시간 복잡도의 경우 최악의 경우 O(n^2)까지 걸릴 수 있다. 
+'''
+
 import sys  # 재귀의 깊이가 깊어질 경우 해결하지 못하는 오류가 발생하여 추가
 sys.setrecursionlimit(10**9)
 
@@ -44,6 +49,7 @@ for _ in range(m):
 	W[str(v) + str(w)] = d
 for i in range(n):
 	G[i].sort(reverse=True)
+# Sink 노드 구해주는 함수 추가
 Sink = []
 for i in range(n):
 	if G[i] == []:
