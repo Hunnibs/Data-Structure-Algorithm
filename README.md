@@ -2,18 +2,16 @@
 
 ## code for study
 
-### Complete
+### cs.sin assignment
 
-1. union-find
-
-- 아군과 적군의 정보를 관리하는 알고리즘을 union-find 자료구조를 이용해서 구현
-
-2. CompositeFunction_O(n)
-
-- 합성함수 계산
-
-### Imcomplete
-
-1. DAG 최장시간 계산(미완)
-
-- DAG 구현, 최장시간 구하는 함수 미완
+1. Balanced_Substring
+2. ChickenBeer
+3. ChoosePresent
+4. CompositeFunction
+5. DAG
+6. LCA
+7. MaxTile
+8. Query_ancestor
+9. Query_weight
+10. Rainbow
+11. UnionFind
