@@ -26,3 +26,8 @@
 20. TwoQueen
 21. UnionFind
 22. ZombieWorld
+
+### final exam coding test
+
+1. 팀 프로젝트 - 두 명씩 짝 지어 성적의 합을 구할 때 최소가 되는 팀이 최대가 되는 경우 
+2. 사다리 타기 - 사다리 타기에서 특정 라인에 오는 숫자 맞추기
