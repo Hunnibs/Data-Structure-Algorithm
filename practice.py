@@ -1,7 +1,1 @@
-A = input()
-
-
-
-B = A.split(' ')
-
-print(len(B))
+print('s' * 3)
