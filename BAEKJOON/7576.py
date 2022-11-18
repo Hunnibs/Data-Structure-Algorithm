@@ -1,3 +1,5 @@
+# BFS Algorithm
+
 from collections import deque
 
 def BFS():
