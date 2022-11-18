@@ -1,3 +1,5 @@
+# DFS & Back Tracking Algorithm
+
 def sol(sum, cnt):
     global result
     
