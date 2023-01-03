@@ -20,6 +20,7 @@ def LCM():
 # input
 a, b = map(int, input().split())
 
+# main
 if b < a:
     tmp = a
     a = b
