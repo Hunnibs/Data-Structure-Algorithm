@@ -15,6 +15,7 @@ def sol(PS):
 # input
 N = int(input())
 
+# main
 for _ in range(N):
     PS = input()
     result = sol(PS)
