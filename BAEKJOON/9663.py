@@ -1,3 +1,5 @@
+import copy
+
 def BackTracking(dx, arr):
     global cnt
 
@@ -16,16 +18,17 @@ def BackTracking(dx, arr):
             BackTracking(dx+1, tmp)
 
 def visit(dx, dy, arr):  # 체스판 상 놓을 수 없는 위치 업데이트
-    if arr[dx][dy] == 0:
+    tmp = copy.deepcopy(arr)
+    if tmp[dx][dy] == 0:
         for i in range(1, N-dx):
-            arr[dx+i][dy] = 1  # 세로
+            tmp[dx+i][dy] = 1  # 세로
             # 왼쪽 아래 대각
             if 0 <= dy-i < N:
-                arr[dx+i][dy-i] = 1
+                tmp[dx+i][dy-i] = 1
             if 0 <= dy+i < N:
-                arr[dx+i][dy+i] = 1
+                tmp[dx+i][dy+i] = 1
 
-    return arr
+    return tmp
 
 N = int(input())  # 판에 칸 개수
 
