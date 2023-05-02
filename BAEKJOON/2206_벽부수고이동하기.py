@@ -1,30 +1,36 @@
 import sys
-sys.setrecursionlimit(10 ** 9)
+from collections import deque
 
-def DFS(x, y, dist, hammer):
-    global result
+def BFS():
+    while queue:
+        x, y, hammer = queue.popleft()
 
-    if result < dist:
-        return
-
-    if x == N - 1 and y == M - 1:
-        if dist < result:
-            result = dist
-    else:
         for i in range(4):
             tx = x + dx[i]
             ty = y + dy[i]
             if 0 <= tx < N and 0 <= ty < M:
-                if map[tx][ty] == 0 and not visited[tx][ty]:
-                    visited[tx][ty] = 1
-                    DFS(tx, ty, dist + 1, hammer)
-                    visited[tx][ty] = 0
-                elif map[tx][ty] == 1 and hammer:
-                    visited[tx][ty] = 1
-                    hammer = 0
-                    DFS(tx, ty, dist + 1, hammer)
-                    visited[tx][ty] = 0
-                    hammer = 1
+                if hammer:
+                    if map[tx][ty] == 0:
+                        if not dist[tx][ty]:
+                            dist[tx][ty] = dist[x][y] + 1
+                            queue.append([tx, ty, 1])
+                        else:
+                            if dist[tx][ty] > dist[x][y] + 1:
+                                dist[tx][ty] = dist[x][y] + 1
+                                queue.append([tx, ty, 1])
+                    else:
+                        dist_noHam[tx][ty] = dist[x][y] + 1
+                        queue.append([tx, ty, 0])
+
+                else:
+                    if map[tx][ty] == 0:
+                        if not dist_noHam[tx][ty]:
+                            dist_noHam[tx][ty] = dist_noHam[x][y] + 1
+                            queue.append([tx, ty, 0])
+                        else:
+                            if dist_noHam[tx][ty] > dist_noHam[x][y] + 1:
+                                dist_noHam[tx][ty] = dist_noHam[x][y] + 1
+                                queue.append([tx, ty, 0])
 
 # input
 input = sys.stdin.readline
@@ -33,14 +39,28 @@ N, M = map(int, input().split())
 map = [(list(map(int, list(input().strip())))) for _ in range(N)]
 
 # main
-visited = [[0 for _ in range(M)] for _ in range(N)]
+dist = [[0 for _ in range(M)] for _ in range(N)]
+dist_noHam = [[0 for _ in range(M)] for _ in range(N)]
 dx = [0, 0, -1, 1]
 dy = [1, -1, 0, 0]
 
-result = N * M
-DFS(0, 0, 1, 1)
+queue = deque()
+queue.append([0, 0, 1])
+BFS()
 
-if result == N * M:
-    print(-1)
+ham = dist[N-1][M-1]
+noHam = dist_noHam[N-1][M-1]
+
+if ham and noHam:
+    if ham > noHam:
+        print(noHam+1)
+    else:
+        print(ham+1)
+elif ham:
+    print(ham+1)
+elif noHam:
+    print(noHam+1)
+elif N == 1 and M == 1:
+    print(1)
 else:
-    print(result)
+    print(-1)
